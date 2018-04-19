@@ -1,5 +1,28 @@
 # DJI Onboard SDK (OSDK) 3.6
 
+## Changes from the original DJI Repository
+
+Modifying the Onboard SDK to be able to listen to the drone broadcast without any sending. This allows to connect a second device on the UART_CAN2 port that is just logging what the drone is broadcasting.
+
+### File changed
+
+- `sample/linux/common/dji_linux_helpers.cpp`
+- `osdk-core/api/src/dji_vehicle.cpp`
+- `osdk-core/api/inc/dji_vehicle.hpp`
+
+### Usage
+
+1. The code needs to be launched in sniffing mode first to create the `ackBypass` file. This is done by leaving the line `#define SNIF_DATA_MODE` uncommented in `osdk-core/api/inc/dji_vehicle.hpp`
+2. Compile the SDK and your code and run it. The file should be generated.
+3. Deactivate the sniffing mode by commenting the line `#define SNIF_DATA_MODE` in `osdk-core/api/inc/dji_vehicle.hpp`.
+4. Compile the SDK and your code again and it should use the `ackBypass` file to fake acknowledgement.
+
+## Remarks
+
+The code was only tested to get the vehicle object through the Linux environement class.
+
+## Here starts the original README file
+
 [![Join the chat at https://gitter.im/dji-sdk/Onboard-SDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dji-sdk/Onboard-SDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## What is the DJI Onboard SDK?

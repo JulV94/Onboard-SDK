@@ -512,6 +512,30 @@ Vehicle::parseDroneVersionInfo(Version::VersionData& versionData,
 
   Version::VersionData versionStruct;
 
+  // DONE JulV94 : Get and save in file the ack pointer comming
+  // the drone to fake it next times
+#ifdef SNIF_DATA_MODE
+  DSTATUS("Sniffing mode activated, getting the ack data...");
+  FILE* fw = fopen("ackBypass", "wb");
+  if (fw == NULL)
+  {
+    DERROR("Cannot write the ackBypass file!");
+    return false;
+  }
+  fwrite(ackPtr, sizeof(uint8_t), 64, fw);
+  fclose(fw);
+#endif
+
+  DSTATUS("Faking the ack data");
+  FILE* fr = fopen("ackBypass", "rb");
+  if (fr == NULL)
+  {
+    DERROR("Cannot read the ackBypass file!");
+    return false;
+  }
+  fread(ackPtr, sizeof(uint8_t), 64, fr);
+  fclose(fr);
+
   //! Note down our starting point as a sanity check
   uint8_t* startPtr = ackPtr;
   //! 2b ACK.

@@ -69,6 +69,9 @@
 #include "posix_thread.hpp"
 #endif
 
+// DONE JulV94 : To enable sniffing mode
+#define SNIF_DATA_MODE
+
 namespace DJI
 {
 namespace OSDK

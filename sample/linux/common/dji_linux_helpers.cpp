@@ -148,14 +148,15 @@ LinuxSetup::initVehicle()
   activateData.version = vehicle->getFwVersion();
   ACK::ErrorCode ack   = vehicle->activate(&activateData, functionTimeout);
 
-  if (ACK::getError(ack))
+  // DONE JulV94 : Don't listen to errors in ack
+  /*if (ACK::getError(ack))
   {
     ACK::getErrorCodeMessage(ack, __func__);
     delete (vehicle);
     delete (environment);
     this->environment = nullptr;
     this->vehicle     = nullptr;
-  }
+  }*/
 
 }
 
